@@ -13,18 +13,20 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class Study9Test {
+	int value = 1;
+	
 	@Order(2)
 	@CustomFast
 	@Test
 	@DisplayName("먼저 실행")
 	void new_test1() {
-		System.out.println("1");
+		System.out.println("2 = " + value++);
 	}
 	
 	@Order(1)
 	@Test
 	@DisplayName("이게 더 먼저 실행")
 	void new_test2() {
-		System.out.println("2");
+		System.out.println("1 = " + value++);
 	}
 }
