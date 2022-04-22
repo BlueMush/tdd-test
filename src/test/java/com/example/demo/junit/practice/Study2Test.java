@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.junit.practice;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+
+import com.example.demo.Study1;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class Study2Test {

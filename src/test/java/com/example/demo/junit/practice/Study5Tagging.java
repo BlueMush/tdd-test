@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.junit.practice;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

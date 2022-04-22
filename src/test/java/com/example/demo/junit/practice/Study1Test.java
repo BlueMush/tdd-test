@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.junit.practice;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import com.example.demo.Study1;
 
 public class Study1Test {
 	@Test

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.junit.practice;
 
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
