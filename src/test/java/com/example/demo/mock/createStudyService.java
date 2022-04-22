@@ -37,24 +37,31 @@ public class createStudyService {
 		StudyService studyService = new StudyService(memberServiceMock, studyRepoMock);
 		assertNotNull(studyService);
 		
+		
+		
 		Member member = new Member();
 		member.setId(1L);
 		member.setEmail("imgusah@gmail.com");;
-
-		when(memberServiceMock.findById(any()))
-			.thenReturn(Optional.of(member))
-			.thenThrow(new RuntimeException())
-			.thenReturn(Optional.empty());
-
 		Study study = new Study(10, "java");
+		
+		
+		when(memberServiceMock.findById(any()))
+			.thenReturn(Optional.of(member));
+//			.thenThrow(new RuntimeException())
+//			.thenReturn(Optional.empty());
+		
+		when(studyRepoMock.save(study)).thenReturn(study);
+		
 		
 		Optional<Member> m1 = memberServiceMock.findById(1L);
 		assertEquals("imgusah@gmail.com", m1.get().getEmail());
-		assertThrows(RuntimeException.class, () -> {
-			memberServiceMock.findById(2L);
-		});
-		assertEquals(Optional.empty(), memberServiceMock.findById(3L));
+//		assertThrows(RuntimeException.class, () -> {
+//			memberServiceMock.findById(2L);
+//		});
+//		assertEquals(Optional.empty(), memberServiceMock.findById(3L));
 		
 		studyService.createNewStudy(1L, study);
+		assertEquals(member, study.getOwner());
+		
 	}
 }
