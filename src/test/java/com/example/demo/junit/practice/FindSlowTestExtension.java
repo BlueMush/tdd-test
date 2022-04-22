@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.junit.practice;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
