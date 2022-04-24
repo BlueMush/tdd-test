@@ -9,7 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -49,13 +50,20 @@ public class createStudyService {
 		member.setEmail("imgusah@gmail.com");;
 		Study study = new Study(10, "java");
 		
+		// bdd
+		given(memberServiceMock.findById(1L)).willReturn(Optional.of(member));
 		
-		when(memberServiceMock.findById(any()))
-			.thenReturn(Optional.of(member));
+		// tdd
+//		when(memberServiceMock.findById(any()))
+//			.thenReturn(Optional.of(member));
 //			.thenThrow(new RuntimeException())
 //			.thenReturn(Optional.empty());
 		
-		when(studyRepoMock.save(study)).thenReturn(study);
+		// bdd
+		given(studyRepoMock.save(study)).willReturn(study);
+		// tdd
+//		when(studyRepoMock.save(study)).thenReturn(study);
+		
 		
 		Optional<Member> m1 = memberServiceMock.findById(1L);
 		assertEquals("imgusah@gmail.com", m1.get().getEmail());
@@ -67,7 +75,15 @@ public class createStudyService {
 		studyService.createNewStudy(1L, study);
 		assertEquals(member, study.getOwner());
 		
+		
+		// bdd
+		then(memberServiceMock).should(times(1)).notify(study);
+		// tdd
 		verify(memberServiceMock, times(1)).notify(study);
+		
+		// bdd
+		then(memberServiceMock).shouldHaveNoMoreInteractions();
+		// tdd
 		verify(memberServiceMock, never()).validate(any());
 		
 		InOrder inOrder = inOrder(memberServiceMock);
