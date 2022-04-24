@@ -2,14 +2,19 @@ package com.example.demo.mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -52,7 +57,6 @@ public class createStudyService {
 		
 		when(studyRepoMock.save(study)).thenReturn(study);
 		
-		
 		Optional<Member> m1 = memberServiceMock.findById(1L);
 		assertEquals("imgusah@gmail.com", m1.get().getEmail());
 //		assertThrows(RuntimeException.class, () -> {
@@ -63,5 +67,12 @@ public class createStudyService {
 		studyService.createNewStudy(1L, study);
 		assertEquals(member, study.getOwner());
 		
+		verify(memberServiceMock, times(1)).notify(study);
+		verify(memberServiceMock, never()).validate(any());
+		
+		InOrder inOrder = inOrder(memberServiceMock);
+		inOrder.verify(memberServiceMock).notify(study);
+		
+		verifyNoMoreInteractions(memberServiceMock);
 	}
 }
